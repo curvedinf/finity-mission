@@ -24,7 +24,7 @@ Run `LwjglApp` to execute on the desktop.
 A custom deploy task is created specifically for JVM. Run the `package/packageFatJar` gradle task to create a fat
 executable JAR. This task can be tinkered with in the `build.gradlek.kts` file.
 
-If and when the packages are renamed from `com.game.template.LwjglApp` to whatever, ensure to update the `jvm.mainClass`
+If and when the packages are renamed from `com.game.finitymission.LwjglApp` to whatever, ensure to update the `jvm.mainClass`
 property in the `gradle.properties` file to ensure that the `packageFatJar` task will work properly.
 
 ### JS

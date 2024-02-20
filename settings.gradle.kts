@@ -6,5 +6,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = "littlekt-game-template"
+rootProject.name = "Finity Mission"
 include("game")

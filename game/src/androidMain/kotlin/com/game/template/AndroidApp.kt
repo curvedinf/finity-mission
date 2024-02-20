@@ -1,4 +1,4 @@
-package com.game.template
+package com.game.finitymission
 
 import android.app.Application
 

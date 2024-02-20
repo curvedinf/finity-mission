@@ -15,7 +15,7 @@ allprojects {
         mavenCentral()
     }
 
-    group = "com.game.template"
+    group = "com.game.finitymission"
     version = "1.0"
 }
 
