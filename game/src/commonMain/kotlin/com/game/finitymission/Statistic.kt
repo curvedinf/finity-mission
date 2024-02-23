@@ -63,11 +63,11 @@ class Statistic(
     }
 
     fun calculate() : Double {
-        if state.now() == cachedTick {
+        if (state.now() == cachedTick) {
             return cachedCalculatedValue
         }
         var totalFactor = 1.0
-        for(modifier in modifiers.values) {
+        for (modifier in modifiers.values) {
             totalFactor += modifier.factor
         }
         cachedCalculatedValue = currentValue * totalFactor
