@@ -5,6 +5,7 @@ open class Ability(
     val duration: Int,
     val from: Actor,
 ) : Mote(state) {
+    override val type: Type = Type.ABILITY
     val effects: LinkedHashMap<Int, Effect> = LinkedHashMap()
     override fun serialize(): ByteArray {
         TODO("Not yet implemented")

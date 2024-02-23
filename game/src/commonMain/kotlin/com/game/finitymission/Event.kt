@@ -7,7 +7,7 @@ open class Event(
     val from: Mote? = null,
 ) : Mote(state) {
     override val type: Type = Type.EVENT
-    enum class EventType{
+    enum class EventType {
         TICK,
         INPUT_PRESSED,
         INPUT_RELEASED,
