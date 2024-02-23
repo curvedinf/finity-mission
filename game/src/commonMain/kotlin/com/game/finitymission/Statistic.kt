@@ -1,19 +1,17 @@
 package com.game.finitymission
 
 class Statistic(
-    game: Game,
-    name: String,
+    state: GameState,
     var value: Double,
-    var actor: Actor? = null,
-) : Mote(game, name) {
+    var actor: Actor,
+) : Mote(state) {
     override val type: Type = Type.STATISTIC
 
-    val modifiers: LinkedHashMap<String, Modifier> = LinkedHashMap()
-    fun addModifier(name: String, multiplier: Double, contributingEffect: Effect? = null) {
-        val modifier = Modifier(name, multiplier, this, contributingEffect)
-        this.modifiers[modifier.name] = modifier
+    val modifiers: LinkedHashMap<Int, Modifier> = LinkedHashMap()
+    fun addModifier(factor: Double, effect: Effect) {
+        val modifier = Modifier(state, factor,this, effect)
+        modifiers[modifier.id] = modifier
     }
-
     override fun serialize(): ByteArray {
         TODO("Not yet implemented")
     }

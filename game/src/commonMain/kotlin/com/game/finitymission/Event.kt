@@ -1,13 +1,12 @@
 package com.game.finitymission
 
 open class Event(
-    game: Game,
-    name: String,
+    state: GameState,
     val eventType: EventType,
-    val from: Mote? = null,
     val target: Mote? = null,
-) : Mote(game, name) {
-    override val type: MoteType = MoteType.EVENT
+    val from: Mote? = null,
+) : Mote(state) {
+    override val type: Type = Type.EVENT
     enum class EventType{
         TICK,
         INPUT_PRESSED,

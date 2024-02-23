@@ -1,12 +1,11 @@
 package com.game.finitymission
 
 class Modifier(
-    game: Game,
-    name: String,
-    var multiplier: Double,
+    state: GameState,
+    var factor: Double,
     val statistic: Statistic,
-    val contributingEffect: Effect,
-) : Mote(game, name) {
+    val from: Effect,
+) : Mote(state) {
     override val type: Type = Type.MODIFIER
     override fun serialize(): ByteArray {
         TODO("Not yet implemented")
@@ -15,5 +14,4 @@ class Modifier(
     override fun deserialize(data: ByteArray) {
         TODO("Not yet implemented")
     }
-
 }

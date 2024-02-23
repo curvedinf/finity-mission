@@ -7,12 +7,16 @@ class Effect(
     val duration: Double? = null,
 ) : Mote(state) {
     override val type: Type = Type.EFFECT
-    val activeModifiers: LinkedHashMap<String, Modifier> = LinkedHashMap()
+    val modifiers: LinkedHashMap<Int, Modifier> = LinkedHashMap()
     override fun serialize(): ByteArray {
         TODO("Not yet implemented")
     }
 
     override fun deserialize(data: ByteArray) {
+        TODO("Not yet implemented")
+    }
+
+    fun tick() {
         TODO("Not yet implemented")
     }
 }
