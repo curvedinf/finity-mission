@@ -1,0 +1,87 @@
+Employers:
+UNMC - Piloting
+SteelHawk - Gunnery
+Omnisoft - Technology
+Elbestahl - Engineering
+Hantzu - Influence
+TRL - Logistics
+Freelance - +1 free skill per level, black market
+
+Skills:
+Piloting (rogue) - Higher crits, More speed, mobility abilities
+Gunnery (warrior) - More damage, crit dodge, More hp, damage abilities
+Engineering (white mage) - Faster fire rate, More slots, elemental resistance, healing abilities
+Technology (black mage) - Larger energy reserve, faster energy regen, crowd control abilities
+Influence (necromancer) - More luck, better pets, pet abilities
+Logistics (bard) - Faster cooldowns, shield recharge, more ammo refill, resupply abilities
+
+Character Core Stats:
+Damage
+Fire Rate
+Structure HP
+Self repair rate
+Shield HP
+Shield recharge damage delay
+Shield recharge rate
+Speed
+Energy
+Energy regen
+Ability Cooldown
+Crit dodge
+Luck
+Ammo chance
+Equipment slots
+Critical chance
+Critical multiplier
+Fire resistance
+Explosive resistance
+Corrosive resistance
+Freeze resistance
+Radiation resistance
+Electric resistance
+
+Targeted Abilities:
+Has a required charcter level, skill level, & employer level
+Does something to someone and then goes away
+
+Triggered Abilities:
+Has a required charcter level, skill level, & employer level
+Listens to events and triggers on appropriate ones
+Lasts a period of time or indefinitely
+Does something on triggering
+
+Passive Abilities:
+Has a required charcter level, skill level, & employer level
+Adds or subtracts from a stat
+Does something every tick
+
+
+Ability ideas:
+Dodge
+Vampire
+Fire - DOT
+Freeze - slow
+Corrosion - DOT
+Explosive - stun
+Radiation - shield damage
+Electric - disable
+Confusion - attacks for you
+Fear - runs away
+Heal over time
+Stun
+Fly
+Disabled
+Speed boost
+Fire rate increase
+Higher xp
+Higher money
+Decreased aggro
+
+
+Triggers:
+Dying
+Taking damage
+Using an ability
+Entering an area
+Exiting an area
+Being in an area
