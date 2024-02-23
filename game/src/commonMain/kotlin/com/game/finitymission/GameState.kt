@@ -24,13 +24,6 @@ class GameState() {
         }
     }
 
-    fun triggerEvent(eventType: Event.EventType, target: Mote? = null, from: Mote? = null) {
-        val event = Event(this, eventType, target, from)
-        eventListeners[eventType]?.values?.forEach {
-            it.onEvent(event)
-        }
-    }
-
     fun addMote(mote: Mote) {
         motes[mote.id] = mote
     }
@@ -68,8 +61,13 @@ class GameState() {
         }
         eventListeners[eventType]?.set(mote.id, mote)
     }
-
     fun unregisterEventListener(mote: Mote, eventType: Event.EventType) {
         eventListeners[eventType]?.remove(mote.id)
+    }
+    fun triggerEvent(eventType: Event.EventType, target: Mote? = null, from: Mote? = null) {
+        val event = Event(this, eventType, target, from)
+        eventListeners[eventType]?.values?.forEach {
+            it.onEvent(event)
+        }
     }
 }
