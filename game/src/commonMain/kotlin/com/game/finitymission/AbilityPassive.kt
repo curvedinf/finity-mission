@@ -1,10 +1,11 @@
 package com.game.finitymission
 
-class AbilityPassive(
+open class AbilityPassive(
     state: GameState,
     duration: Int,
     from: Actor,
-) : Ability(state, duration, from) {
+    abilityType: AbilityType,
+) : Ability(state, duration, from, abilityType) {
 
     override fun tick() {
         super.tick()

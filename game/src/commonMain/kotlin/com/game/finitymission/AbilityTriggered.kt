@@ -4,7 +4,8 @@ class AbilityTriggered(
     state: GameState,
     duration: Int,
     from: Actor,
-) : Ability(state, duration, from) {
+    abilityType: AbilityType,
+) : Ability(state, duration, from, abilityType) {
     override fun onEvent(event: Event) {
         trigger(event)
     }

@@ -3,6 +3,7 @@ package com.game.finitymission
 abstract class Mote (
     val state: GameState
 ) {
+
     enum class Type {
         MOTE,
         ABILITY,
@@ -16,10 +17,11 @@ abstract class Mote (
 
     var creationTime: Int = state.now()
 
+    data class MoteId(val value: Int)
     companion object {
         var nextId: Int = 1
     }
-    val id: Int = nextId++
+    val id: MoteId = MoteId(nextId++)
 
     open val listenEvents: MutableSet<Event.EventType> = mutableSetOf()
 

@@ -2,11 +2,11 @@ package com.game.finitymission
 
 class GameState() {
     var tickNumber: Int = 0
-    val motes: LinkedHashMap<Int, Mote> = LinkedHashMap()
-    val actors: LinkedHashMap<Int, Actor> = LinkedHashMap()
-    val abilities: LinkedHashMap<Int, Ability> = LinkedHashMap()
-    val effects: LinkedHashMap<Int, Effect> = LinkedHashMap()
-    val eventListeners: LinkedHashMap<Event.EventType, LinkedHashMap<Int, Mote>> = LinkedHashMap()
+    val motes: LinkedHashMap<Mote.MoteId, Mote> = LinkedHashMap()
+    val actors: LinkedHashMap<Mote.MoteId, Actor> = LinkedHashMap()
+    val abilities: LinkedHashMap<Mote.MoteId, Ability> = LinkedHashMap()
+    val effects: LinkedHashMap<Mote.MoteId, Effect> = LinkedHashMap()
+    val eventListeners: LinkedHashMap<Event.EventType, LinkedHashMap<Mote.MoteId, Mote>> = LinkedHashMap()
     fun now(): Int {
         return tickNumber
     }

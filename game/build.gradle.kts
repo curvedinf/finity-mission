@@ -10,6 +10,11 @@ repositories {
 plugins {
     kotlin("multiplatform")
     id("com.android.application")
+    kotlin("plugin.serialization") version "1.5.0"
+}
+
+dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")
 }
 
 kotlin {
