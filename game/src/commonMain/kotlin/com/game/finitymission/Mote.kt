@@ -39,7 +39,11 @@ abstract class Mote (
         state?.unregisterEventListener(this, eventType)
     }
 
+    open fun remove() {
+        state.queueRemoveMote(this)
+    }
+
     open fun destroy() {
-        state.removeMote(this)
+        // Any cleanup needed
     }
 }

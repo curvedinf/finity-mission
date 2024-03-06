@@ -25,6 +25,9 @@ class Game(context: Context) : ContextListener(context) {
         val camera = viewport.camera
         var rotation = 0.radians
         var rotationTimer = 0.milliseconds
+        val state = GameState()
+
+        val player = Actor(state)
 
         onResize { width, height ->
             viewport.update(width, height, context)
@@ -33,6 +36,8 @@ class Game(context: Context) : ContextListener(context) {
         onRender { dt ->
             gl.clearColor(Color.DARK_GRAY)
             gl.clear(ClearBufferMask.COLOR_BUFFER_BIT)
+
+            state.tick()
 
             batch.use(camera.viewProjection) {
                 Fonts.default.draw(it, "Hello LittleKt!", 0f, 0f, align = HAlign.CENTER)

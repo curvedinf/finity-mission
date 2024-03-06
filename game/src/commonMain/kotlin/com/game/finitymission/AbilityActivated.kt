@@ -3,10 +3,9 @@ package com.game.finitymission
 open class AbilityActivated(
     state: GameState,
     duration: Int,
+    target: Actor,
     from: Actor,
-    var target: Actor? = null,
-    abilityType: AbilityType,
-) : Ability(state, duration, from, abilityType) {
+) : Ability(state, duration, target,from) {
     open fun activate() {
     }
 }

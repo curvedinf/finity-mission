@@ -3,9 +3,9 @@ package com.game.finitymission
 class AbilityTriggered(
     state: GameState,
     duration: Int,
+    target: Actor,
     from: Actor,
-    abilityType: AbilityType,
-) : Ability(state, duration, from, abilityType) {
+) : Ability(state, duration, target, from) {
     override fun onEvent(event: Event) {
         trigger(event)
     }

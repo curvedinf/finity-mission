@@ -56,7 +56,7 @@ class Statistic(
 
     var cachedCalculatedValue: Double = 0.0
     var cachedTick: Int = -1
-    val modifiers: LinkedHashMap<Int, Modifier> = LinkedHashMap()
+    val modifiers: LinkedHashMap<MoteId, Modifier> = LinkedHashMap()
     fun addModifier(factor: Double, effect: Effect) {
         val modifier = Modifier(state, factor,this, effect)
         modifiers[modifier.id] = modifier

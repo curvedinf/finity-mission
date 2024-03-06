@@ -3,6 +3,7 @@ package com.game.finitymission
 open class Event(
     state: GameState,
     val eventType: EventType,
+    val subject: Mote? = null,
     val target: Mote? = null,
     val from: Mote? = null,
 ) : Mote(state) {
