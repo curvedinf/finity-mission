@@ -6,7 +6,7 @@ import com.game.finitymission.GameState
 import com.game.finitymission.motes.Mote
 import com.lehaine.littlekt.graphics.shader.generator.type.vec.Vec2
 
-open class Ability(
+abstract class Ability(
     state: GameState,
     var owner: Actor,
     duration: Int? = null,

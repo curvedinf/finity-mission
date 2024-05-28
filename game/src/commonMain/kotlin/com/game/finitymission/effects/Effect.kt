@@ -8,7 +8,6 @@ import com.game.finitymission.abilities.Ability
 import com.game.finitymission.actors.Actor
 import com.game.finitymission.events.EventType
 import com.game.finitymission.motes.MoteMapName
-import com.game.finitymission.motes.NameMoteMap
 
 open class Effect(
     state: GameState,
@@ -21,6 +20,7 @@ open class Effect(
 
     init {
         target.addEffect(this)
+        state.addEffect(this)
         modifiers += createModifers(target).associateBy { it.id }
         linkedMapOf(
             MoteMapName.OBJECT to this,
@@ -35,8 +35,10 @@ open class Effect(
     }
 
     override fun deconstruct() {
+        print("Deconstructing effect $id")
         modifiers.values.forEach { it.remove() }
         target.removeEffect(this)
+        state.removeEffect(this)
         linkedMapOf(
             MoteMapName.OBJECT to this,
             MoteMapName.TARGET to target,
@@ -47,6 +49,7 @@ open class Effect(
                 it
             )
         }
+        super.deconstruct()
     }
 
     open fun createModifers(target: Actor): List<Modifier> {

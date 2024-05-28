@@ -27,7 +27,7 @@ class Game(context: Context) : ContextListener(context) {
         var rotationTimer = 0.milliseconds
         val state = GameState(context)
 
-        val player = Character(state)
+        val player = Character(state, "assets/ot1-front.png")
         UserInput(state, player)
 
         val texture: Texture = resourcesVfs["assets/terrain.png"].readTexture()
@@ -45,7 +45,8 @@ class Game(context: Context) : ContextListener(context) {
 
             batch.use(camera.viewProjection) {
                 batch.draw(terrain, x = -500f, y = -500f, width = 1000f, height = 1000f)
-                Fonts.default.draw(it, "Hello LittleKt!", 0f, 0f, align = HAlign.CENTER)
+                state.render(batch)
+                //Fonts.default.draw(it, "Hello LittleKt!", 0f, 0f, align = HAlign.CENTER)
             }
             rotationTimer += dt
             if (rotationTimer > 10.milliseconds) {

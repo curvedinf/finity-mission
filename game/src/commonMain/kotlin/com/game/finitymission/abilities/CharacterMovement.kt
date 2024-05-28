@@ -2,6 +2,7 @@ package com.game.finitymission.abilities
 
 import com.game.finitymission.GameState
 import com.game.finitymission.actors.Character
+import com.game.finitymission.effects.Friction
 import com.game.finitymission.effects.Impulse
 import com.game.finitymission.events.Event
 import com.game.finitymission.events.EventType
@@ -26,9 +27,10 @@ class CharacterMovement(
         listenForEvent(EventType.THRUST_DOWN_END)
         listenForEvent(EventType.THRUST_LEFT_END)
         listenForEvent(EventType.THRUST_RIGHT_END)
+        Friction(state, owner)
     }
 
-    override fun trigger(event: Event) {
+    override fun onEvent(event: Event) {
         val speed = owner.stat(StatisticType.SPEED) ?: 0.0
         when (event.eventType) {
             EventType.THRUST_UP_START -> impulseUp = createThrust(0f, -1f, speed)
@@ -57,7 +59,7 @@ class CharacterMovement(
 
     private fun createThrust(x: Float, y: Float, speed: Double): Impulse {
         val force = MutableVec2f(x, y).scale(speed.toFloat())
-        return owner.addImpulse(duration = 1, force = force, tapered = false)
+        return owner.addImpulse(force)
     }
 
     override fun deconstruct() {

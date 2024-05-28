@@ -7,11 +7,20 @@ import com.game.finitymission.effects.Impulse
 import com.game.finitymission.motes.Mote
 import com.game.finitymission.statistics.Statistic
 import com.game.finitymission.statistics.StatisticType
+import com.lehaine.littlekt.file.vfs.readTexture
+import com.lehaine.littlekt.graphics.Texture
+import com.lehaine.littlekt.graphics.g2d.SpriteBatch
+import com.lehaine.littlekt.graphics.g2d.TextureSlice
+import com.lehaine.littlekt.graphics.slice
+import com.lehaine.littlekt.graphics.textureMesh
 import com.lehaine.littlekt.math.MutableVec2f
+import kotlinx.coroutines.runBlocking
 
 open class Actor(
     state: GameState,
-    val mass: Float = 1.0f
+    val texturePath: String? = null,
+    val textureScale: Float = 1.0f,
+    val mass: Float = 1.0f,
 ) : Mote(state) {
     override val type: Type = Type.ACTOR
 
@@ -25,6 +34,12 @@ open class Actor(
     val abilities: LinkedHashMap<Int, Ability> = LinkedHashMap()
     val effects: LinkedHashMap<MoteId, Effect> = LinkedHashMap()
 
+    // Rendering
+    val texture: TextureSlice? = runBlocking {
+        if (texturePath == null) null
+        else state.context.resourcesVfs[texturePath].readTexture()?.slice()
+    }
+
     init {
         state.addActor(this)
     }
@@ -36,8 +51,19 @@ open class Actor(
         position += velocity
     }
 
-    fun addImpulse(duration: Int, force: MutableVec2f, tapered: Boolean = false): Impulse {
-        return Impulse(state, this, force, tapered, duration)
+    fun render(batch: SpriteBatch) {
+        if (texture == null) return
+        batch.draw(
+            texture,
+            x = position.x - texture.width * textureScale / 2,
+            y = position.y - texture.height * textureScale / 2,
+            width = texture.width * textureScale,
+            height = texture.height * textureScale
+        )
+    }
+
+    fun addImpulse(force: MutableVec2f, duration: Int? = null, tapered: Boolean = false): Impulse {
+        return Impulse(state, this, force, duration, tapered)
     }
 
     fun addStatistic(statistic: Statistic) {

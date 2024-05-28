@@ -105,6 +105,7 @@ abstract class Mote(
      */
     open fun remove() {
         state.queueRemoveMote(this)
+        deconstruct()
     }
 
     /**

@@ -8,8 +8,8 @@ class Impulse(
     state: GameState,
     target: Actor,
     val force: MutableVec2f,
-    val tapered: Boolean = true,
     duration: Int? = null,
+    val tapered: Boolean = false,
 ) : Effect(state, target,null, duration) {
     override fun tick() {
         target?.let {

@@ -46,5 +46,5 @@ enum class StatisticType(val label: String, val starting: Double = 1.0, val maxi
     SHIELD_RADIATION_RESISTANCE("Shield Radiation Resistance", 1.0),
     SHIELD_ELECTRICAL_RESISTANCE("Shield Electrical Resistance", 1.0),
     // Internal Statistics
-    PHYSICS_FRICTION("Physics Friction Factor", 0.9),
+    PHYSICS_FRICTION("Physics Friction Factor", 0.75),
 }

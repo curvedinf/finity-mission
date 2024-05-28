@@ -9,6 +9,7 @@ import com.game.finitymission.motes.IdMoteMap
 import com.game.finitymission.motes.Mote
 import com.game.finitymission.motes.NameMoteMap
 import com.lehaine.littlekt.Context
+import com.lehaine.littlekt.graphics.g2d.SpriteBatch
 import com.lehaine.littlekt.math.MutableVec2f
 
 
@@ -26,9 +27,6 @@ class GameState(val context: Context) {
     // Removal queue
     val moteRemovalQueue: MutableList<Mote> = mutableListOf()
 
-    // World properties
-    val characterFriction: Float = 0.9f
-
     fun now(): Int {
         return tickNumber
     }
@@ -36,11 +34,17 @@ class GameState(val context: Context) {
     fun tick() {
         tickNumber++
 
-        actors.values.forEach { it?.tick() }
-        abilities.values.forEach { it?.tick() }
-        effects.values.forEach { it?.tick() }
+        actors.values.toList().forEach { it?.tick() }
+        abilities.values.toList().forEach { it?.tick() }
+        effects.values.toList().forEach { it?.tick() }
 
         emptyMoteRemovalQueue()
+    }
+
+    fun render(batch: SpriteBatch) {
+        actors.values.forEach {
+            (it as? Actor)?.render(batch)
+        }
     }
 
     // Mote management

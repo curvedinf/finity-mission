@@ -4,7 +4,7 @@ import com.game.finitymission.actors.Actor
 import com.game.finitymission.GameState
 import com.lehaine.littlekt.math.Vec2f
 
-open class Targeted(
+abstract class Targeted(
     state: GameState,
     owner: Actor,
     duration: Int? = null,
