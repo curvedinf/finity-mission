@@ -1,22 +1,19 @@
 package com.game.finitymission.abilities
 
-import com.game.finitymission.actors.Actor
+import com.game.finitymission.actors.Character
 import com.game.finitymission.effects.RespondToUserInput
 import com.game.finitymission.GameState
 
 class UserInput(
     state: GameState,
-    duration: Int,
-    target: Actor,  // typically the user's Actor
-    from: Actor,
-) : Ability(state, duration, target, from) {
+    owner: Character,
+) : Passive(state, owner, null) {
     private var respondToUserInput: RespondToUserInput? = null
 
     init {
-        val newEffect = RespondToUserInput(state, this, duration)
-        newEffect.registerTarget(target)
-        respondToUserInput = newEffect
-        state.addEffect(newEffect)
+        val newRespondToUserInput = RespondToUserInput(state, owner, this)
+        respondToUserInput = newRespondToUserInput
+        state.addEffect(newRespondToUserInput)
     }
 
     override fun deconstruct() {

@@ -4,12 +4,11 @@ import com.game.finitymission.actors.Actor
 import com.game.finitymission.events.Event
 import com.game.finitymission.GameState
 
-class Triggered(
+open class Triggered(
     state: GameState,
-    duration: Int,
-    target: Actor,
-    from: Actor,
-) : Ability(state, duration, target, from) {
+    owner: Actor,
+    duration: Int? = null
+) : Ability(state, owner, duration) {
     override fun onEvent(event: Event) {
         trigger(event)
     }

@@ -2,59 +2,15 @@ package com.game.finitymission.events
 
 import com.game.finitymission.GameState
 import com.game.finitymission.motes.Mote
+import com.game.finitymission.motes.NameMoteMap
 
 open class Event(
     state: GameState,
     val eventType: EventType,
-    val subject: Mote? = null,
-    val target: Mote? = null,
-    val from: Mote? = null,
+    val motes: NameMoteMap? = null,
 ) : Mote(state) {
     override val type: Type = Type.EVENT
-    enum class EventType {
-        TICK,
-        INPUT_PRESSED,
-        INPUT_RELEASED,
-        ACTOR_CREATED,
-        ACTOR_DESTROYED,
-        ACTOR_COLLIDING,
-        ABILITY_CREATED,
-        ABILITY_ACTIVATED,
-        ABILITY_DEACTIVATED,
-        ABILITY_DESTROYED,
-        TARGETED_ABILITY_CREATED,
-        TARGETED_ABILITY_ACTIVATED,
-        TARGETED_ABILITY_DEACTIVATED,
-        TARGETED_ABILITY_DESTROYED,
-        TRIGGERED_ABILITY_CREATED,
-        TRIGGERED_ABILITY_ACTIVATED,
-        TRIGGERED_ABILITY_DEACTIVATED,
-        TRIGGERED_ABILITY_DESTROYED,
-        PASSIVE_ABILITY_CREATED,
-        PASSIVE_ABILITY_ACTIVATED,
-        PASSIVE_ABILITY_DEACTIVATED,
-        PASSIVE_ABILITY_DESTROYED,
-        EFFECT_CREATED,
-        EFFECT_DESTROYED,
-        MODIFIER_CREATED,
-        MODIFIER_DESTROYED,
-        AREA_ENTERED,
-        AREA_EXITED,
-        SHOOTING_START,
-        SHOOTING_END,
-        ABILITY_1_START,
-        ABILITY_1_END,
-        ABILITY_2_START,
-        ABILITY_2_END,
-        THRUST_UP_START,
-        THRUST_UP_END,
-        THRUST_DOWN_START,
-        THRUST_DOWN_END,
-        THRUST_LEFT_START,
-        THRUST_LEFT_END,
-        THRUST_RIGHT_START,
-        THRUST_RIGHT_END
-    }
+
     override fun serialize(): ByteArray {
         TODO("Not yet implemented")
     }

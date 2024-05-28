@@ -4,27 +4,19 @@ import com.game.finitymission.actors.Actor
 import com.game.finitymission.effects.Effect
 import com.game.finitymission.GameState
 import com.game.finitymission.motes.Mote
+import com.lehaine.littlekt.graphics.shader.generator.type.vec.Vec2
 
 open class Ability(
     state: GameState,
-    val duration: Int,
-    var target: Actor,
-    val from: Actor,
-) : Mote(state) {
+    var owner: Actor,
+    duration: Int? = null,
+) : Mote(state, duration) {
     override val type: Type = Type.ABILITY
 
-    val effects: LinkedHashMap<Int, Effect> = LinkedHashMap()
+    val effects: LinkedHashMap<Int, Effect> = linkedMapOf()
 
-    open fun tick() {
-        if(state.now() >= creationTime + duration) {
-
-        }
-    }
-
-    open fun use(target: Actor? = null) {
-        for(effect in effects.values) {
-            //effect.activate()
-        }
+    init {
+        state.addAbility(this)
     }
 
     override fun serialize(): ByteArray {

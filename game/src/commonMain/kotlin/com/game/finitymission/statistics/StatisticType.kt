@@ -1,0 +1,50 @@
+package com.game.finitymission.statistics
+
+enum class StatisticType(val label: String, val starting: Double = 1.0, val maximum: Double? = null) {
+    // Skills
+    PILOTING("Piloting", 1.0),
+    GUNNERY("Gunnery", 1.0),
+    ENGINEERING("Engineering", 1.0),
+    TECHNOLOGY("Technology", 1.0),
+    INFLUENCE("Influence", 1.0),
+    LOGISTICS("Logistics", 1.0),
+    // Counters
+    LEVEL("Level", 1.0),
+    EXPERIENCE("Experience", 0.0),
+    MONEY("Money", 0.0),
+    SKILL_POINTS("Skill Points", 0.0),
+    // Derivative Stats
+    ARMOR("Armor", 100.0),
+    SHIELDS("Shields", 100.0),
+    ENERGY("Energy", 100.0),
+    LUCK("Luck", 1.0),
+    SPEED("Speed", 1.0),
+    DAMAGE("Damage", 1.0),
+    FIRE_RATE("Fire Rate", 1.0),
+    ABILITY_COOLDOWN("Ability Cooldown", 1.0),
+    EQUIPMENT_SLOTS("Equipment Slots", 10.0),
+    REPAIR_DELAY("Repair Delay", 5.0),
+    REPAIR_RATE("Repair Rate", 0.0),
+    SHIELD_RECHARGE_DELAY("Shield Recharge Delay", 5.0),
+    SHIELD_RECHARGE_RATE("Shield Recharge Rate", 10.0),
+    CRITICAL_CHANCE("Critical Chance", 1.0),
+    CRITICAL_DODGE_CHANCE("Critical Dodge Chance", 0.0),
+    AMMO_CHANCE("Ammo Chance", 0.0),
+    // Resistances
+    ARMOR_RESISTANCE("Armor Resistance", 1.0),
+    ARMOR_FIRE_RESISTANCE("Armor Fire Resistance", 1.0),
+    ARMOR_COLD_RESISTANCE("Armor Cold Resistance", 1.0),
+    ARMOR_EXPLOSIVE_RESISTANCE("Armor Explosive Resistance", 1.0),
+    ARMOR_CORROSION_RESISTANCE("Armor Corrosion Resistance", 1.0),
+    ARMOR_RADIATION_RESISTANCE("Armor Radiation Resistance", 1.0),
+    ARMOR_ELECTRICAL_RESISTANCE("Armor Electrical Resistance", 1.0),
+    SHIELD_RESISTANCE("Shield Resistance", 1.0),
+    SHIELD_FIRE_RESISTANCE("Shield Fire Resistance", 1.0),
+    SHIELD_COLD_RESISTANCE("Shield Cold Resistance", 1.0),
+    SHIELD_EXPLOSIVE_RESISTANCE("Shield Explosive Resistance", 1.0),
+    SHIELD_CORROSION_RESISTANCE("Shield Corrosion Resistance", 1.0),
+    SHIELD_RADIATION_RESISTANCE("Shield Radiation Resistance", 1.0),
+    SHIELD_ELECTRICAL_RESISTANCE("Shield Electrical Resistance", 1.0),
+    // Internal Statistics
+    PHYSICS_FRICTION("Physics Friction Factor", 0.9),
+}

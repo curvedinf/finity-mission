@@ -1,14 +1,16 @@
 package com.game.finitymission.effects
 
 import com.game.finitymission.GameState
+import com.game.finitymission.actors.Actor
 import com.lehaine.littlekt.math.MutableVec2f
 
 class Impulse(
     state: GameState,
-    duration: Int? = null,
+    target: Actor,
     val force: MutableVec2f,
     val tapered: Boolean = true,
-) : Effect(state, null, duration) {
+    duration: Int? = null,
+) : Effect(state, target,null, duration) {
     override fun tick() {
         target?.let {
             val mass = it.mass

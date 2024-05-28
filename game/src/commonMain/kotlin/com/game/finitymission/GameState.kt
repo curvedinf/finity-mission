@@ -4,7 +4,10 @@ import com.game.finitymission.abilities.Ability
 import com.game.finitymission.actors.Actor
 import com.game.finitymission.effects.Effect
 import com.game.finitymission.events.Event
+import com.game.finitymission.events.EventType
+import com.game.finitymission.motes.IdMoteMap
 import com.game.finitymission.motes.Mote
+import com.game.finitymission.motes.NameMoteMap
 import com.lehaine.littlekt.Context
 import com.lehaine.littlekt.math.MutableVec2f
 
@@ -14,14 +17,17 @@ import com.lehaine.littlekt.math.MutableVec2f
  */
 class GameState(val context: Context) {
     var tickNumber: Int = 0
-    val motes: LinkedHashMap<Mote.MoteId, Mote> = LinkedHashMap()
-    val actors: LinkedHashMap<Mote.MoteId, Actor> = LinkedHashMap()
-    val abilities: LinkedHashMap<Mote.MoteId, Ability> = LinkedHashMap()
-    val effects: LinkedHashMap<Mote.MoteId, Effect> = LinkedHashMap()
-    val eventListeners: LinkedHashMap<Event.EventType, LinkedHashMap<Mote.MoteId, Mote>> = LinkedHashMap()
+    val motes: IdMoteMap = LinkedHashMap()
+    val actors: IdMoteMap = LinkedHashMap()
+    val abilities: IdMoteMap = LinkedHashMap()
+    val effects: IdMoteMap = LinkedHashMap()
+    val eventListeners: LinkedHashMap<EventType, IdMoteMap> = LinkedHashMap()
 
     // Removal queue
     val moteRemovalQueue: MutableList<Mote> = mutableListOf()
+
+    // World properties
+    val characterFriction: Float = 0.9f
 
     fun now(): Int {
         return tickNumber
@@ -30,9 +36,9 @@ class GameState(val context: Context) {
     fun tick() {
         tickNumber++
 
-        actors.values.forEach { it.tick() }
-        abilities.values.forEach { it.tick() }
-        effects.values.forEach { it.tick() }
+        actors.values.forEach { it?.tick() }
+        abilities.values.forEach { it?.tick() }
+        effects.values.forEach { it?.tick() }
 
         emptyMoteRemovalQueue()
     }
@@ -86,19 +92,22 @@ class GameState(val context: Context) {
     }
 
     // Event management
-    fun registerEventListener(mote: Mote, eventType: Event.EventType) {
+    fun registerEventListener(mote: Mote, eventType: EventType) {
         eventListeners.getOrPut(eventType) { LinkedHashMap() }[mote.id] = mote
     }
 
-    fun unregisterEventListener(mote: Mote, eventType: Event.EventType) {
+    fun unregisterEventListener(mote: Mote, eventType: EventType) {
         eventListeners[eventType]?.remove(mote.id)
     }
 
-    fun triggerEvent(eventType: Event.EventType, subject: Mote? = null, target: Mote? = null, from: Mote? = null) {
-        val event = Event(this, eventType, subject, target, from)
-        eventListeners[eventType]?.values?.forEach { it.onEvent(event) }
+    fun triggerEvent(eventType: EventType, motes: NameMoteMap? = null) {
+        val event = Event(this, eventType, motes)
+        eventListeners[eventType]?.values?.forEach { it?.onEvent(event) }
     }
 
+    // Actor querying
     fun getActorsInRadius(position: MutableVec2f, radius: Float): List<Actor> =
-        actors.values.filter { position.distance(it.position) <= radius }
+        actors.values.filterIsInstance<Actor>().filter {
+            position.distance(it.position) <= radius
+        }
 }

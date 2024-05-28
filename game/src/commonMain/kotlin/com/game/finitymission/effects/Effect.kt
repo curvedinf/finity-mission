@@ -2,39 +2,51 @@ package com.game.finitymission.effects
 
 import com.game.finitymission.events.Event
 import com.game.finitymission.GameState
-import com.game.finitymission.motes.Modifier
+import com.game.finitymission.statistics.Modifier
 import com.game.finitymission.motes.Mote
 import com.game.finitymission.abilities.Ability
 import com.game.finitymission.actors.Actor
+import com.game.finitymission.events.EventType
+import com.game.finitymission.motes.MoteMapName
+import com.game.finitymission.motes.NameMoteMap
 
 open class Effect(
     state: GameState,
+    var target: Actor,
     val from: Ability? = null,
-    val duration: Int? = null,
-) : Mote(state) {
-    var target: Actor? = null
-
+    duration: Int? = null,
+) : Mote(state, duration) {
     override val type: Type = Type.EFFECT
     val modifiers: LinkedHashMap<MoteId, Modifier> = LinkedHashMap()
 
-    open fun tick() {
-        // If the duration is not null, this effect is timed and expires
-        if(duration != null && duration + creationTime <= state.now()) {
-            remove()
+    init {
+        target.addEffect(this)
+        modifiers += createModifers(target).associateBy { it.id }
+        linkedMapOf(
+            MoteMapName.OBJECT to this,
+            MoteMapName.TARGET to target,
+            MoteMapName.FROM to from
+        ).let {
+            state.triggerEvent(
+                EventType.EFFECT_CREATED,
+                it
+            )
         }
-    }
-
-    fun registerTarget(newTarget: Actor) {
-        target = newTarget
-        newTarget.targetEffect(this)
-        modifiers += createModifers(newTarget).associateBy { it.id }
-        state.triggerEvent(Event.EventType.EFFECT_CREATED, this, newTarget, from)
     }
 
     override fun deconstruct() {
         modifiers.values.forEach { it.remove() }
-        target?.removeEffect(this)
-        state.triggerEvent(Event.EventType.EFFECT_DESTROYED, this, target, from)
+        target.removeEffect(this)
+        linkedMapOf(
+            MoteMapName.OBJECT to this,
+            MoteMapName.TARGET to target,
+            MoteMapName.FROM to from
+        ).let {
+            state.triggerEvent(
+                EventType.EFFECT_DESTROYED,
+                it
+            )
+        }
     }
 
     open fun createModifers(target: Actor): List<Modifier> {

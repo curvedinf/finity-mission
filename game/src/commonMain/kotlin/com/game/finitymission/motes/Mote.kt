@@ -2,6 +2,8 @@ package com.game.finitymission.motes
 
 import com.game.finitymission.GameState
 import com.game.finitymission.events.Event
+import com.game.finitymission.events.EventType
+
 
 /**
  * Represents a base game object with a lifecycle managed by the [GameState].
@@ -10,7 +12,8 @@ import com.game.finitymission.events.Event
  * @property state The [GameState] this Mote belongs to.
  */
 abstract class Mote(
-    val state: GameState
+    val state: GameState,
+    val duration: Int? = null
 ) {
     /**
      * Enumerates the possible types of [Mote]s.
@@ -54,7 +57,7 @@ abstract class Mote(
     /**
      * A mutable set of [Event.EventType]s that this [Mote] is listening for.
      */
-    open val listenEvents: MutableSet<Event.EventType> = mutableSetOf()
+    open val listenEvents: MutableSet<EventType> = mutableSetOf()
 
     /**
      * Serializes this [Mote] to a byte array.
@@ -82,7 +85,7 @@ abstract class Mote(
      *
      * @param eventType The type of event to listen for.
      */
-    open fun listenForEvent(eventType: Event.EventType) {
+    open fun listenForEvent(eventType: EventType) {
         listenEvents.add(eventType)
         state.registerEventListener(this, eventType)
     }
@@ -92,7 +95,7 @@ abstract class Mote(
      *
      * @param eventType The type of event to stop listening for.
      */
-    open fun stopListeningForEvent(eventType: Event.EventType) {
+    open fun stopListeningForEvent(eventType: EventType) {
         listenEvents.remove(eventType)
         state.unregisterEventListener(this, eventType)
     }
@@ -110,5 +113,16 @@ abstract class Mote(
      */
     open fun deconstruct() {
         // Any cleanup needed
+    }
+
+    /**
+     * Called every game tick.
+     * This function should be overridden to perform any necessary logic.
+     */
+    open fun tick() {
+        // If the duration is not null, this effect is timed and expires
+        if(duration != null && duration + creationTime <= state.now()) {
+            remove()
+        }
     }
 }

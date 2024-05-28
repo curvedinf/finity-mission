@@ -3,16 +3,15 @@ package com.game.finitymission.actors
 import com.game.finitymission.*
 import com.game.finitymission.abilities.Ability
 import com.game.finitymission.effects.Effect
-import com.game.finitymission.effects.Friction
 import com.game.finitymission.effects.Impulse
 import com.game.finitymission.motes.Mote
-import com.game.finitymission.motes.Statistic
+import com.game.finitymission.statistics.Statistic
+import com.game.finitymission.statistics.StatisticType
 import com.lehaine.littlekt.math.MutableVec2f
 
 open class Actor(
     state: GameState,
-    val mass: Float = 1.0f,
-    val friction: Float = 0.9f,
+    val mass: Float = 1.0f
 ) : Mote(state) {
     override val type: Type = Type.ACTOR
 
@@ -22,39 +21,46 @@ open class Actor(
     var facing = MutableVec2f(1f, 0f) // location of the mouse cursor
 
     // Game mechanics
-    val statistics: LinkedHashMap<Statistic.StatisticType, Statistic> = LinkedHashMap()
-    val abilities: LinkedHashMap<VirtualKey, Ability> = LinkedHashMap()
+    val statistics: LinkedHashMap<StatisticType, Statistic> = LinkedHashMap()
+    val abilities: LinkedHashMap<Int, Ability> = LinkedHashMap()
     val effects: LinkedHashMap<MoteId, Effect> = LinkedHashMap()
 
     init {
-        val frictionEffect = Friction(state, frictionFactor = friction)
-        frictionEffect.registerTarget(this)
-        state.addEffect(frictionEffect)
+        state.addActor(this)
     }
 
-    fun tick() {
+    override fun tick() {
         if(facing.subtract(position).length() < 0.001f) {
             facing.y -= 1f
         }
         position += velocity
-        velocity = velocity.scale(friction)
     }
 
     fun addImpulse(duration: Int, force: MutableVec2f, tapered: Boolean = false): Impulse {
-        val impulse = Impulse(state, duration, force, tapered)
-        impulse.registerTarget(this)
-        return impulse
+        return Impulse(state, this, force, tapered, duration)
     }
 
-    fun getStat(statType: Statistic.StatisticType): Double {
-        return statistics[statType]?.calculate() ?: 0.0
+    fun addStatistic(statistic: Statistic) {
+        statistics[statistic.statisticType] = statistic
     }
 
-    fun useAbility(key: VirtualKey, target: Actor? = null) {
-        abilities[key]?.use(target)
+    fun removeStatistic(statistic: Statistic) {
+        statistics.remove(statistic.statisticType)
     }
 
-    fun targetEffect(effect: Effect) {
+    fun getStatistic(statisticType: StatisticType): Statistic? {
+        return statistics[statisticType]
+    }
+
+    fun stat(statisticType: StatisticType): Double? {
+        return statistics[statisticType]?.calculate()
+    }
+
+    fun activateAbility(abilityNumber: Int, target: Actor? = null) {
+        //abilities[key]?.use(target)
+    }
+
+    fun addEffect(effect: Effect) {
         effects[effect.id] = effect
     }
 

@@ -2,6 +2,7 @@ package com.game.finitymission
 
 import com.game.finitymission.abilities.UserInput
 import com.game.finitymission.actors.Actor
+import com.game.finitymission.actors.Character
 import com.lehaine.littlekt.Context
 import com.lehaine.littlekt.ContextListener
 import com.lehaine.littlekt.file.vfs.readTexture
@@ -26,12 +27,8 @@ class Game(context: Context) : ContextListener(context) {
         var rotationTimer = 0.milliseconds
         val state = GameState(context)
 
-        val player = Actor(state)
-        state.addActor(player)
-
-        // Create and attach the ability to manage user input
-        val userInputAbility = UserInput(state, duration = Int.MAX_VALUE, target = player, from = player)
-        state.addAbility(userInputAbility)
+        val player = Character(state)
+        UserInput(state, player)
 
         val texture: Texture = resourcesVfs["assets/terrain.png"].readTexture()
         val terrain = texture.slice()
