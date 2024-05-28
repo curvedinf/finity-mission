@@ -1,4 +1,7 @@
-package com.game.finitymission
+package com.game.finitymission.events
+
+import com.game.finitymission.GameState
+import com.game.finitymission.motes.Mote
 
 open class Event(
     state: GameState,
@@ -37,6 +40,20 @@ open class Event(
         MODIFIER_DESTROYED,
         AREA_ENTERED,
         AREA_EXITED,
+        SHOOTING_START,
+        SHOOTING_END,
+        ABILITY_1_START,
+        ABILITY_1_END,
+        ABILITY_2_START,
+        ABILITY_2_END,
+        THRUST_UP_START,
+        THRUST_UP_END,
+        THRUST_DOWN_START,
+        THRUST_DOWN_END,
+        THRUST_LEFT_START,
+        THRUST_LEFT_END,
+        THRUST_RIGHT_START,
+        THRUST_RIGHT_END
     }
     override fun serialize(): ByteArray {
         TODO("Not yet implemented")

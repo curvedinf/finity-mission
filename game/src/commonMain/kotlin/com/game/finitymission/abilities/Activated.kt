@@ -1,6 +1,9 @@
-package com.game.finitymission
+package com.game.finitymission.abilities
 
-open class AbilityActivated(
+import com.game.finitymission.actors.Actor
+import com.game.finitymission.GameState
+
+open class Activated(
     state: GameState,
     duration: Int,
     target: Actor,

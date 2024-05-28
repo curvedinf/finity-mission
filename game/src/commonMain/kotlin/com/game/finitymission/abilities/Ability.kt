@@ -1,4 +1,9 @@
-package com.game.finitymission
+package com.game.finitymission.abilities
+
+import com.game.finitymission.actors.Actor
+import com.game.finitymission.effects.Effect
+import com.game.finitymission.GameState
+import com.game.finitymission.motes.Mote
 
 open class Ability(
     state: GameState,

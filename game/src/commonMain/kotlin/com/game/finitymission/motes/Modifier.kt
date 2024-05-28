@@ -1,4 +1,7 @@
-package com.game.finitymission
+package com.game.finitymission.motes
+
+import com.game.finitymission.GameState
+import com.game.finitymission.effects.Effect
 
 class Modifier(
     state: GameState,
@@ -13,5 +16,10 @@ class Modifier(
 
     override fun deserialize(data: ByteArray) {
         TODO("Not yet implemented")
+    }
+
+    override fun deconstruct() {
+        super.deconstruct()
+        statistic.modifiers.remove(id)
     }
 }

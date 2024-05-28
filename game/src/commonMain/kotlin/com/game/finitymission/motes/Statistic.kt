@@ -1,4 +1,8 @@
-package com.game.finitymission
+package com.game.finitymission.motes
+
+import com.game.finitymission.GameState
+import com.game.finitymission.actors.Actor
+import com.game.finitymission.effects.Effect
 
 class Statistic(
     state: GameState,

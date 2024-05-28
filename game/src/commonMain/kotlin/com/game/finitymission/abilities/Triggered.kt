@@ -1,6 +1,10 @@
-package com.game.finitymission
+package com.game.finitymission.abilities
 
-class AbilityTriggered(
+import com.game.finitymission.actors.Actor
+import com.game.finitymission.events.Event
+import com.game.finitymission.GameState
+
+class Triggered(
     state: GameState,
     duration: Int,
     target: Actor,

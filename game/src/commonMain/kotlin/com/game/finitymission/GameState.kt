@@ -1,6 +1,18 @@
 package com.game.finitymission
 
-class GameState() {
+import com.game.finitymission.abilities.Ability
+import com.game.finitymission.actors.Actor
+import com.game.finitymission.effects.Effect
+import com.game.finitymission.events.Event
+import com.game.finitymission.motes.Mote
+import com.lehaine.littlekt.Context
+import com.lehaine.littlekt.math.MutableVec2f
+
+
+/**
+ * This is a tooltip comment that will show up when hovering over the function.
+ */
+class GameState(val context: Context) {
     var tickNumber: Int = 0
     val motes: LinkedHashMap<Mote.MoteId, Mote> = LinkedHashMap()
     val actors: LinkedHashMap<Mote.MoteId, Actor> = LinkedHashMap()
@@ -17,15 +29,11 @@ class GameState() {
 
     fun tick() {
         tickNumber++
-        for(actor in actors.values) {
-            actor.tick()
-        }
-        for(ability in abilities.values) {
-            ability.tick()
-        }
-        for(effect in effects.values) {
-            effect.tick()
-        }
+
+        actors.values.forEach { it.tick() }
+        abilities.values.forEach { it.tick() }
+        effects.values.forEach { it.tick() }
+
         emptyMoteRemovalQueue()
     }
 
@@ -40,9 +48,9 @@ class GameState() {
         moteRemovalQueue.add(mote)
     }
     fun emptyMoteRemovalQueue() {
-        for(mote in moteRemovalQueue) {
-            mote.destroy()
-            removeMote(mote)
+        moteRemovalQueue.forEach {
+            it.deconstruct()
+            removeMote(it)
         }
         moteRemovalQueue.clear()
     }
@@ -79,18 +87,18 @@ class GameState() {
 
     // Event management
     fun registerEventListener(mote: Mote, eventType: Event.EventType) {
-        if(eventType !in eventListeners) {
-            eventListeners[eventType] = LinkedHashMap()
-        }
-        eventListeners[eventType]?.set(mote.id, mote)
+        eventListeners.getOrPut(eventType) { LinkedHashMap() }[mote.id] = mote
     }
+
     fun unregisterEventListener(mote: Mote, eventType: Event.EventType) {
         eventListeners[eventType]?.remove(mote.id)
     }
+
     fun triggerEvent(eventType: Event.EventType, subject: Mote? = null, target: Mote? = null, from: Mote? = null) {
         val event = Event(this, eventType, subject, target, from)
-        eventListeners[eventType]?.values?.forEach {
-            it.onEvent(event)
-        }
+        eventListeners[eventType]?.values?.forEach { it.onEvent(event) }
     }
+
+    fun getActorsInRadius(position: MutableVec2f, radius: Float): List<Actor> =
+        actors.values.filter { position.distance(it.position) <= radius }
 }

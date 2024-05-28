@@ -1,4 +1,8 @@
-package com.game.finitymission
+package com.game.finitymission.items
+
+import com.game.finitymission.GameState
+import com.game.finitymission.motes.Mote
+import com.game.finitymission.actors.Actor
 
 class Item(
     state: GameState,
